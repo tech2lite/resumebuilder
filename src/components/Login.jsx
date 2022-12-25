@@ -13,7 +13,7 @@ export default function Login() {
     if (JSON.parse(localStorage.getItem('userInfo'))) {
       navigate("/")
     }
-  }, [])
+  }, [navigate])
 
   const handleLoginChange = (e) => {
     setloginField({
