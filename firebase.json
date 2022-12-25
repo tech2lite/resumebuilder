@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "build",
+    "site": "resumebuilder-tech2lite",
     "ignore": [
       "firebase.json",
       "**/.*",
