@@ -29,9 +29,14 @@ export default function Register() {
                 loading: false,
                 submission: true
             })
-            setTimeout(() => {
-                navigate("/login");
-            }, 3000)
+            signInWithEmailAndPassword(authentication, email, password).then(loginCredentials => {
+                const user = loginCredentials.user
+                console.log(user);
+                localStorage.setItem("userInfo", JSON.stringify(user));
+                navigate("/");
+            }).catch(err => {
+                console.log(err)
+            })
         }).catch(_err => {
             setRegistrationStatus({
                 loading: false,
@@ -40,6 +45,7 @@ export default function Register() {
         })
         registrationRef.current.reset()
     };
+
     return (
         <div className="register centered-form">
             <Container>
@@ -128,7 +134,7 @@ export default function Register() {
                     </Typography>
                 </Card>
             </Container>
-            {registrationStatus.submission ? <Alert severity="success" className='badge-status'>Successfully created your account. We're redirecting you to the login page shortly!</Alert> : registrationStatus.submission === false ? <Alert severity="error" className='badge-status'>This account already exists! Kindly Login</Alert> : ''}
+            {registrationStatus.submission ? <Alert severity="success" className='badge-status'>Successfully created your account.</Alert> : registrationStatus.submission === false ? <Alert severity="error" className='badge-status'>This account already exists! Kindly Login</Alert> : ''}
 
         </div >
     )

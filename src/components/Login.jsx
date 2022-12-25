@@ -1,97 +1,61 @@
-import * as React from 'react';
-import { Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import React, { useEffect, useState } from 'react';
+import { Container, Button, TextField, FormControlLabel, Checkbox, Paper, Card, Grid, Typography } from '@mui/material';
+import app from '../FirebaseConfig';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const authentication = getAuth(app);
+  const [loginField, setloginField] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('userInfo'))) {
+      navigate("/")
+    }
+  }, [])
+
+  const handleLoginChange = (e) => {
+    setloginField({
+      ...loginField,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const { email, password } = loginField
+    signInWithEmailAndPassword(authentication, email, password).then(userCredentials => {
+      const user = userCredentials.user
+      console.log(user);
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      navigate("/");
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={7}
-        sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random)',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+    <div className="login centered-form">
+      <Container>
+        <Card variant='outlined' sx={{ width: 400, mx: "auto", padding: 4 }}>
+          <Typography variant="h4" component="h4" align='center' sx={{ mb: 3 }}>
+            Login
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
+          <form onSubmit={handleLogin}>
+            <TextField name='email' label="Email" variant="outlined" sx={{ width: 1, mb: 2 }}
+              required onChange={handleLoginChange} />
+            <TextField name='password' type="password" label="Password" variant="outlined" sx={{ width: 1, mb: 2 }} required onChange={handleLoginChange} />
+            <Button variant="outlined" type='submit'>
+              {/* <CircularProgress size={14} /> */}
+              Login
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+          </form>
+          <Typography variant="p" component="p" sx={{ mt: 3 }}>
+            Don't have an account? <Link to='/register'>Click Here</Link>
+          </Typography>
+        </Card>
+      </Container>
+    </div>
   );
 }
