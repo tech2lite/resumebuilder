@@ -5,3 +5,10 @@
   justify-content: center;
   height: 100vh;
 }
+
+.badge-status {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
