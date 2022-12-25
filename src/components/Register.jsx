@@ -1,6 +1,5 @@
 import app from '../FirebaseConfig';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Alert, Card, Container, Typography } from '@mui/material';
 import { CircularProgress, Button } from '@mui/material';
