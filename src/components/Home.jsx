@@ -11,7 +11,7 @@ export default function Home() {
         } else {
             navigate("/login")
         }
-    }, [])
+    }, [navigate])
 
     return (
         <div>{userInfo && userInfo.email}</div>
