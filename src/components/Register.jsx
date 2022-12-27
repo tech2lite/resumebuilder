@@ -1,4 +1,4 @@
-import app from '../FirebaseConfig';
+import { app } from '../FirebaseConfig';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import TextField from '@mui/material/TextField';
 import { Alert, Card, Container, Typography } from '@mui/material';
@@ -6,6 +6,7 @@ import { CircularProgress, Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from "react-hook-form";
+import { dataRef } from '../FirebaseConfig'
 
 export default function Register() {
     const authentication = getAuth(app);
@@ -28,10 +29,14 @@ export default function Register() {
                 loading: false,
                 submission: true
             })
+            let userUid = _userCredentials.user.uid
+            dataRef.ref(`userInfo/${userUid}`).set({
+                uid: userUid
+            })
+         
             signInWithEmailAndPassword(authentication, email, password).then(loginCredentials => {
                 const user = loginCredentials.user
-                console.log(user);
-                localStorage.setItem("userInfo", JSON.stringify(user));
+                sessionStorage.setItem("userInfo", JSON.stringify(user));
                 navigate("/");
             }).catch(err => {
                 console.log(err)

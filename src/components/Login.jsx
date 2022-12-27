@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Button, TextField, Card, Typography } from '@mui/material';
-import app from '../FirebaseConfig';
+import { app } from '../FirebaseConfig';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('userInfo'))) {
+    if (JSON.parse(sessionStorage.getItem('userInfo'))) {
       navigate("/")
     }
   }, [navigate])
@@ -27,9 +27,8 @@ export default function Login() {
     const { email, password } = loginField
     signInWithEmailAndPassword(authentication, email, password).then(userCredentials => {
       const user = userCredentials.user
-      console.log(user);
-      localStorage.setItem("userInfo", JSON.stringify(user));
-      navigate("/");
+      navigate("/home")
+      sessionStorage.setItem("userInfo", JSON.stringify(user))
     }).catch(err => {
       console.log(err)
     })
