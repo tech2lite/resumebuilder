@@ -33,7 +33,7 @@ export default function Register() {
             dataRef.ref(`userInfo/${userUid}`).set({
                 uid: userUid
             })
-         
+
             signInWithEmailAndPassword(authentication, email, password).then(loginCredentials => {
                 const user = loginCredentials.user
                 sessionStorage.setItem("userInfo", JSON.stringify(user));
@@ -129,8 +129,6 @@ export default function Register() {
                         />
                         <Button variant="outlined" type='submit'>
                             {registrationStatus.loading ? <CircularProgress size={14} /> : 'Register'}
-                            {/* <CircularProgress size={14} /> */}
-
                         </Button>
                     </form>
                     <Typography variant="p" component="p" sx={{ mt: 3 }}>

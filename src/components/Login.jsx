@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Button, TextField, Card, Typography } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import { Container, Button, TextField, Card, Typography, CircularProgress, Alert } from '@mui/material';
 import { app } from '../FirebaseConfig';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { Link, useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function Login() {
   const authentication = getAuth(app);
-  const [loginField, setloginField] = useState({});
   const navigate = useNavigate();
+  const [loginStatus, setLoginStatus] = useState({
+    loading: false,
+    submission: null
+  })
+
+  const { handleSubmit, control } = useForm();
+  const loginRef = useRef(null)
 
   useEffect(() => {
     if (JSON.parse(sessionStorage.getItem('userInfo'))) {
@@ -15,23 +22,30 @@ export default function Login() {
     }
   }, [navigate])
 
-  const handleLoginChange = (e) => {
-    setloginField({
-      ...loginField,
-      [e.target.name]: e.target.value
+  const handleLogin = (data) => {
+    setLoginStatus({
+      loading: true,
+      submission: null
     })
-  }
+    const { email, password } = data;
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const { email, password } = loginField
     signInWithEmailAndPassword(authentication, email, password).then(userCredentials => {
-      const user = userCredentials.user
-      navigate("/home")
-      sessionStorage.setItem("userInfo", JSON.stringify(user))
+      const user = userCredentials.user;
+      sessionStorage.setItem("userInfo", JSON.stringify(user));
+      setLoginStatus({
+        loading: false,
+        submission: true
+      });
+      navigate("/home");
     }).catch(err => {
       console.log(err)
+      setLoginStatus({
+        loading: false,
+        submission: false
+      })
     })
+
+    loginRef.current.reset()
   }
 
   return (
@@ -41,13 +55,59 @@ export default function Login() {
           <Typography variant="h4" component="h4" align='center' sx={{ mb: 3 }}>
             Login
           </Typography>
-          <form onSubmit={handleLogin}>
-            <TextField name='email' label="Email" variant="outlined" sx={{ width: 1, mb: 2 }}
-              required onChange={handleLoginChange} />
-            <TextField name='password' type="password" label="Password" variant="outlined" sx={{ width: 1, mb: 2 }} required onChange={handleLoginChange} />
+          <form onSubmit={handleSubmit(handleLogin)} ref={loginRef}>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: 'Email required', pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "invalid email address"
+                }
+              }}
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <TextField
+                  name='email'
+                  label="Email"
+                  variant="outlined"
+                  value={value}
+                  sx={{ width: 1, mb: 2 }}
+                  onChange={onChange}
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                />
+              )}
+            />
+
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: 'Password must be entered',
+                minLength: {
+                  value: 6,
+                  message: "Password must have at least 6 characters"
+                }
+              }}
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <TextField
+                  type='password'
+                  name='password'
+                  label="Password"
+                  variant="outlined"
+                  value={value}
+                  sx={{ width: 1, mb: 2 }}
+                  onChange={onChange}
+                  error={!!error}
+                  helperText={error ? error.message : null}
+                />
+              )}
+            />
+
             <Button variant="outlined" type='submit'>
-              {/* <CircularProgress size={14} /> */}
-              Login
+              {loginStatus.loading ? <CircularProgress size={14} /> : 'Login'}
             </Button>
           </form>
           <Typography variant="p" component="p" sx={{ mt: 3 }}>
@@ -55,6 +115,8 @@ export default function Login() {
           </Typography>
         </Card>
       </Container>
+      {loginStatus.submission === false ? <Alert severity="error" className='badge-status'>Incorrect Email or Password</Alert> : ''}
+
     </div>
   );
 }
