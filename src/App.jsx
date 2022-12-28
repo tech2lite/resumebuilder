@@ -19,7 +19,8 @@ function App() {
           <Routes>
             <Route path='/register' element={<Register />}></Route>
             <Route index path='/login' element={<Login />}></Route>
-            <Route exact path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
