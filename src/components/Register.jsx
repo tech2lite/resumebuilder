@@ -1,7 +1,7 @@
 import { app } from '../FirebaseConfig';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import TextField from '@mui/material/TextField';
-import { Alert, Card, Container, Typography } from '@mui/material';
+import { Alert, Card, Container, Grid, Typography } from '@mui/material';
 import { CircularProgress, Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
