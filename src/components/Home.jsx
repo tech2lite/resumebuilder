@@ -7,6 +7,7 @@ import { dataRef } from '../FirebaseConfig';
 export default function Home() {
     const navigate = useNavigate();
     const [userInfo, setuserInfo] = useState();
+
     useEffect(() => {
         if (JSON.parse(sessionStorage.getItem('userInfo'))) {
             setuserInfo(JSON.parse(sessionStorage.getItem('userInfo')));
@@ -29,6 +30,7 @@ export default function Home() {
             }
         })
     }, [navigate, userInfo])
+
     const LogoutHandler = () => {
         sessionStorage.clear()
         navigate("/login")
