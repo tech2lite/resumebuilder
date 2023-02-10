@@ -1,9 +1,7 @@
+
 import { Card, Container } from '@mui/material';
-import { Button, Card, Container, Grid } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
-import { dataRef } from '../FirebaseConfig';
+
+
 import EducationDetails from './EducationDetails';
 import Navbar from './Navbar';
 import PersonalInfo from './PersonalInfo';
