@@ -12,3 +12,17 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.education-details {
+  margin: 20px 0;
+}
+
+.education-details .title {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 30px;
+}
+
+.education-details .title h2 {
+  margin: 0;
+}
