@@ -1,13 +1,17 @@
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { useContext } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { dataRef } from '../FirebaseConfig';
-import GetLoggedUserInfo from '../reusable-hooks/GetLoggedUserInfo';
+import { ResumeContext } from './ResumeDataContext';
 
 export default function PersonalInfo() {
-    let currentUserAuthData = GetLoggedUserInfo()[0]
-    let retrievedInfo = GetLoggedUserInfo()[1]
-    const { handleSubmit, control } = useForm({ values: retrievedInfo?.personalInfo });
+    const personalInfo = useContext(ResumeContext)
+
+    let currentUserAuthData = personalInfo.currentUserAuthData
+    let retrievedInfo = personalInfo.personalInformation
+
+    const { handleSubmit, control } = useForm({ values: retrievedInfo });
     const onSubmit = data => {
         let { uid } = currentUserAuthData
         dataRef.ref(`userInfo/${uid}`).update({

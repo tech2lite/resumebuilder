@@ -1,0 +1,32 @@
+.cascade {
+    display: flex;
+    .main-context{
+        background: #fff;
+        *{
+            color: #9b9b9b;
+        }
+    }
+    .sidebar {
+        background-color: #cc3333;
+        flex-basis: 25%;
+
+        h1 {
+            padding: 1em 0.5em;
+        }
+
+        .contact {
+            h3 {
+                padding: 1em 0.5em;
+            }
+        }
+        .address{
+            h6{
+                font-size: 1em;
+            }
+        }
+    }
+
+    .main-context {
+        flex-basis: 75%;
+    }
+}

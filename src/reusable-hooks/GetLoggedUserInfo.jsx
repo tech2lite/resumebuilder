@@ -17,5 +17,5 @@ export default function GetLoggedUserInfo() {
             setretrieveInfo(snapshot.val())
         });
     }, [])
-    return [userInfo, retrieveInfo]
+    return { userInfo, retrieveInfo }
 }
