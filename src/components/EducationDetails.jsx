@@ -9,9 +9,6 @@ export default function EducationDetails() {
     let currentUserAuthData = GetLoggedUserInfo()[0]
     let retrievedInfo = GetLoggedUserInfo()[1]
     const { handleSubmit, control } = useForm({ values: retrievedInfo?.educationDetails });
-    const [error, setError] = useState({
-        academic: ""
-    })
     const [qualify, setQualify] = useState([
         {
             academic: "",
@@ -42,85 +39,88 @@ export default function EducationDetails() {
                     </Button>
                 </div>
                 {
-                    qualify.map((edu, index) => (
-                        <div key={index}>
-                            <Controller
-                                name={"academic" + parseFloat(index + 1)}
-                                control={control}
-                                defaultValue=""
-                                rules={{
-                                    required: 'School/College Name is required',
-                                    minLength: {
-                                        value: 2,
-                                        message: "Name must be atleast 2 Characters"
-                                    }
-                                }}
-                                render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                    <TextField
-                                        name={"academic" + parseFloat(index + 1)}
-                                        label="School/College Name"
-                                        variant="outlined"
-                                        value={value}
-                                        sx={{ width: 1, mb: 2 }}
-                                        onChange={onChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name={"course" + parseFloat(index + 1)}
-                                control={control}
-                                defaultValue=""
-                                rules={{
-                                    required: 'course Name is required',
-                                    minLength: {
-                                        value: 2,
-                                        message: "Name must be atleast 2 Characters"
-                                    }
-                                }}
-                                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                    qualify.map((index) => {
+                        const fieldName = `education[${index}]`;
+                        return (
+                            <div key={index}>
+                                <Controller
+                                    name={`${fieldName}.academic`}
+                                    control={control}
+                                    defaultValue=""
+                                    rules={{
+                                        required: 'School/College Name is required',
+                                        minLength: {
+                                            value: 2,
+                                            message: "Name must be atleast 2 Characters"
+                                        }
+                                    }}
+                                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                        <TextField
+                                            name={`${fieldName}.academic`}
+                                            label="School/College Name"
+                                            variant="outlined"
+                                            value={value}
+                                            sx={{ width: 1, mb: 2 }}
+                                            onChange={onChange}
+                                            error={!!error}
+                                            helperText={error ? error.message : null}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    name={`${fieldName}.course`}
+                                    control={control}
+                                    defaultValue=""
+                                    rules={{
+                                        required: 'course Name is required',
+                                        minLength: {
+                                            value: 2,
+                                            message: "Name must be atleast 2 Characters"
+                                        }
+                                    }}
+                                    render={({ field: { onChange, value }, fieldState: { error } }) => (
 
-                                    <TextField
-                                        name={"course" + parseFloat(index + 1)}
-                                        label="Course Name"
-                                        variant="outlined"
-                                        value={value}
-                                        sx={{ width: 1, mb: 2 }}
-                                        onChange={onChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                    />
-                                )}
-                            />
-                            <Controller
-                                name={"year" + parseFloat(index + 1)}
-                                control={control}
-                                defaultValue=""
-                                rules={{
-                                    required: 'year is required',
-                                    minLength: {
-                                        value: 4,
-                                        message: "Correct year is required"
-                                    }
-                                }}
-                                render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                    <TextField
-                                        name={"year" + parseFloat(index + 1)}
-                                        label="Passed Year"
-                                        variant="outlined"
-                                        multiline
-                                        maxRows={4}
-                                        value={value}
-                                        sx={{ width: 1, mb: 2 }}
-                                        onChange={onChange}
-                                        error={!!error}
-                                        helperText={error ? error.message : null}
-                                    />
-                                )}
-                            />
-                        </div>
-                    ))
+                                        <TextField
+                                            name={`${fieldName}.course`}
+                                            label="Course Name"
+                                            variant="outlined"
+                                            value={value}
+                                            sx={{ width: 1, mb: 2 }}
+                                            onChange={onChange}
+                                            error={!!error}
+                                            helperText={error ? error.message : null}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    name={`${fieldName}.year`}
+                                    control={control}
+                                    defaultValue=""
+                                    rules={{
+                                        required: 'year is required',
+                                        minLength: {
+                                            value: 4,
+                                            message: "Correct year is required"
+                                        }
+                                    }}
+                                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                        <TextField
+                                            name={`${fieldName}.year`}
+                                            label="Passed Year"
+                                            variant="outlined"
+                                            multiline
+                                            maxRows={4}
+                                            value={value}
+                                            sx={{ width: 1, mb: 2 }}
+                                            onChange={onChange}
+                                            error={!!error}
+                                            helperText={error ? error.message : null}
+                                        />
+                                    )}
+                                />
+                            </div>
+                        )
+                    })
                 }
 
                 <Button variant="outlined" type='submit'>
