@@ -8,6 +8,7 @@ export const ResumeContextProvider = ({ children }) => {
     let constructiveData = {
         currentUserAuthData,
         personalInformation: retrievedInfo?.personalInfo,
+        educationInformation: retrievedInfo?.education
     }
     return (
         <ResumeContext.Provider value={constructiveData}>
