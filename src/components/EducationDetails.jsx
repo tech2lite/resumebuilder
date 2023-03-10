@@ -7,7 +7,7 @@ import GetLoggedUserInfo from '../reusable-hooks/GetLoggedUserInfo';
 export default function EducationDetails() {
     let currentUserAuthData = GetLoggedUserInfo()[0]
     let retrievedInfo = GetLoggedUserInfo()[1]
-    const { handleSubmit, register, control } = useForm({ values: retrievedInfo?.educationDetails });
+    const { handleSubmit, control } = useForm({ values: retrievedInfo?.educationDetails });
     const { fields, append, remove } = useFieldArray({
         control,
         name: "educationDetails",
