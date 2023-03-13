@@ -17,12 +17,22 @@
   margin: 20px 0;
 }
 
-.education-details .title {
+.education-details .title,
+.experience .title {
   display: flex;
   justify-content: space-between;
   margin: 0 0 30px;
 }
 
-.education-details .title h2 {
+.education-details .title h2,
+.experience .title h2 {
   margin: 0;
+}
+
+.experience .textEditor {
+  margin: 0 0 20px;
+}
+
+.experience .textEditor .ql-editor {
+  min-height: 300px;
 }
