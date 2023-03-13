@@ -21,7 +21,7 @@ export default function PersonalInfo() {
     return (
         <div className="personal-info">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h2>Personal Information</h2>
+                <h2 >Personal Information</h2>
                 <Controller
                     name="fullname"
                     control={control}

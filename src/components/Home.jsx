@@ -5,6 +5,7 @@ import { Card, Container } from '@mui/material';
 import EducationDetails from './EducationDetails';
 import Navbar from './Navbar';
 import PersonalInfo from './PersonalInfo';
+import SkillDetails from './SkillDetails';
 
 export default function Home() {
     return (
@@ -14,6 +15,7 @@ export default function Home() {
                 <Card sx={{ p: 2, marginTop: 5 }}>
                     <PersonalInfo />
                     <EducationDetails />
+                    <SkillDetails />
                 </Card>
             </Container>
 
