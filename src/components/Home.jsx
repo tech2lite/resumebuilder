@@ -6,6 +6,7 @@ import EducationDetails from './EducationDetails';
 import Experience from './Experience';
 import Navbar from './Navbar';
 import PersonalInfo from './PersonalInfo';
+import SkillDetails from './SkillDetails';
 
 export default function Home() {
     return (
@@ -15,6 +16,7 @@ export default function Home() {
                 <Card sx={{ p: 2, marginTop: 5 }}>
                     <PersonalInfo />
                     <EducationDetails />
+                    <SkillDetails />
                     <Experience />
                 </Card>
             </Container>
