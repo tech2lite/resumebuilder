@@ -1,0 +1,69 @@
+.preview-template {
+  font-size: 100%;
+  line-height: 1.2;
+}
+.preview-template * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box !important;
+}
+.preview-template h1 {
+  font-size: 2.3em;
+  line-height: 1.2;
+}
+.preview-template h3 {
+  font-size: 1.6em;
+}
+.preview-template h4 {
+  font-size: 1.5em;
+}
+.preview-template h5 {
+  font-size: 1.2em;
+}
+.preview-template p {
+  font-size: 1em;
+}
+
+.cascade {
+  display: flex;
+}
+.cascade .main-context {
+  background: #fff;
+}
+.cascade .main-context * {
+  color: #9b9b9b;
+}
+.cascade .sidebar {
+  background-color: #cc3333;
+  flex-basis: 25%;
+}
+.cascade .sidebar h1 {
+  padding: 1em 0.5em;
+}
+.cascade .sidebar .contact h3 {
+  padding: 1em 0.5em;
+}
+.cascade .sidebar .address h6 {
+  font-size: 1em;
+}
+.cascade .main-context {
+  flex-basis: 75%;
+}
+
+.short-preview-page .dwn-pdf {
+  display: none;
+}
+
+.preview-template {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  color: #f0f0f0;
+}
+.preview-template ul {
+  padding-left: 16px;
+}
+
+.short-preview-page .preview-template {
+  font-size: 40%;
+}/*# sourceMappingURL=style.css.map */

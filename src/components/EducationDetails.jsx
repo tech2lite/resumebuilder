@@ -17,7 +17,6 @@ export default function EducationDetails() {
 
     useEffect(() => {
         retrievedInfo?.forEach((item) => {
-            console.log(item);
             append(item)
         })
     }, [retrievedInfo])

@@ -16,7 +16,7 @@ import 'react-quill/dist/quill.snow.css'
 export default function Experience() {
     const expInfo = useContext(ResumeContext)
     let currentUserAuthData = expInfo.currentUserAuthData
-    let retrievedInfo = expInfo?.workInformation ? JSON.parse(expInfo?.workInformation) : []
+    let retrievedInfo = expInfo?.workInformation
 
     const { handleSubmit, control } = useForm();
     const { fields, append, remove } = useFieldArray({
@@ -25,11 +25,14 @@ export default function Experience() {
     });
 
     const onSubmit = data => {
-        console.log(data);
         let { uid } = currentUserAuthData;
-        console.log(uid);
+        let updateArr = data.experience.map((item) => {
+            item.startDate = item.startDate.$d
+            item.endDate = item.endDate.$d
+            return item
+        })
         dataRef.ref(`userInfo/${uid}`).update({
-            experience: JSON.stringify(data.experience)
+            experience: updateArr
         })
     }
     const addExp = () => {
@@ -37,9 +40,11 @@ export default function Experience() {
     }
 
     useEffect(() => {
-        retrievedInfo?.forEach((item) => {
+        retrievedInfo?.map((item) => {
+            item.startDate = dayjs(new Date(item.startDate))
+            item.endDate = dayjs(new Date(item.endDate))
             console.log(item);
-            // append(item);
+            append(item)
         })
     }, [retrievedInfo])
 
@@ -68,7 +73,7 @@ export default function Experience() {
                             control={control}
                             render={({ field }) => <TextField label="Company Name" sx={{ width: 1, mb: 2 }} {...field} />}
                         />
-                        {/* <Controller
+                        <Controller
                             name={`experience[${index}].startDate`}
                             control={control}
                             render={({ field: { onChange, value } }) =>
@@ -93,7 +98,7 @@ export default function Experience() {
                                     <DatePicker label="EndDate" sx={{ width: 0.484, mb: 2 }} {...field} />
                                 </LocalizationProvider>
                             }
-                        /> */}
+                        />
                         <Controller
                             name={`experience[${index}].description`}
                             control={control}
