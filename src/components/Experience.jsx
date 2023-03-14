@@ -76,16 +76,9 @@ export default function Experience() {
                         <Controller
                             name={`experience[${index}].startDate`}
                             control={control}
-                            render={({ field: { onChange, value } }) =>
+                            render={({ field }) =>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        format="MM-DD-YYYY"
-                                        label="StartDate"
-                                        sx={{ width: 0.5, mb: 2, mr: 2 }}
-                                        value={value}
-                                        onChange={onChange}
-                                    // {...field}
-                                    />
+                                    <DatePicker label="startDate" sx={{ width: 0.484, mb: 2 }} {...field} />
                                 </LocalizationProvider>
                             }
                         />
