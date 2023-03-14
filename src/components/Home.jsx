@@ -5,6 +5,7 @@ import { Card, Container } from '@mui/material';
 import EducationDetails from './EducationDetails';
 import Experience from './Experience';
 import Navbar from './Navbar';
+import OtherDetails from './OtherDetails';
 import PersonalInfo from './PersonalInfo';
 import SkillDetails from './SkillDetails';
 
@@ -18,6 +19,7 @@ export default function Home() {
                     <EducationDetails />
                     <SkillDetails />
                     <Experience />
+                    <OtherDetails />
                 </Card>
             </Container>
 

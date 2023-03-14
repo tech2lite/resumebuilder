@@ -11,6 +11,8 @@ export default function PersonalInfo() {
     let currentUserAuthData = personalInfo.currentUserAuthData
     let retrievedInfo = personalInfo.personalInformation
 
+    console.log(retrievedInfo);
+
     const { handleSubmit, control } = useForm({ values: retrievedInfo });
     const onSubmit = data => {
         let { uid } = currentUserAuthData

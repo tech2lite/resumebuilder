@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -78,7 +78,7 @@ export default function Experience() {
                             control={control}
                             render={({ field }) =>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker label="startDate" sx={{ width: 0.484, mb: 2 }} {...field} />
+                                    <DatePicker format="DD/MM/YYYY" label="startDate" sx={{ width: 0.484, mb: 2 }} {...field} />
                                 </LocalizationProvider>
                             }
                         />
@@ -88,7 +88,7 @@ export default function Experience() {
                             control={control}
                             render={({ field }) =>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker label="EndDate" sx={{ width: 0.484, mb: 2 }} {...field} />
+                                    <DatePicker label="EndDate" format="DD/MM/YYYY" sx={{ width: 0.484, mb: 2 }} {...field} />
                                 </LocalizationProvider>
                             }
                         />
