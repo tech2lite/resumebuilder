@@ -9,7 +9,7 @@ export default function EducationDetails() {
     let currentUserAuthData = personalInfo.currentUserAuthData
     let retrievedInfo = personalInfo.educationInformation
 
-    const { handleSubmit, control } = useForm({ values: retrievedInfo?.education });
+    const { handleSubmit, control } = useForm();
     const { fields, append, remove } = useFieldArray({
         control,
         name: "education",
@@ -17,6 +17,7 @@ export default function EducationDetails() {
 
     useEffect(() => {
         retrievedInfo?.forEach((item) => {
+            console.log(item);
             append(item)
         })
     }, [retrievedInfo])

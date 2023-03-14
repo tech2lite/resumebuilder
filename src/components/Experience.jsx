@@ -1,35 +1,47 @@
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { useForm, Controller, useFieldArray } from "react-hook-form";
+import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
+import { dataRef } from '../FirebaseConfig';
+import { ResumeContext } from './ResumeDataContext';
 
 import ReactQuill from "react-quill"
 import 'react-quill/dist/quill.snow.css'
 
 
 export default function Experience() {
+    const expInfo = useContext(ResumeContext)
+    let currentUserAuthData = expInfo.currentUserAuthData
+    let retrievedInfo = expInfo?.workInformation ? JSON.parse(expInfo?.workInformation) : []
+
     const { handleSubmit, control } = useForm();
-    const { fields, append, } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: "experience",
     });
 
     const onSubmit = data => {
         console.log(data);
+        let { uid } = currentUserAuthData;
+        console.log(uid);
+        dataRef.ref(`userInfo/${uid}`).update({
+            experience: JSON.stringify(data.experience)
+        })
     }
     const addExp = () => {
         append({ role: "", startDate: "", endDate: "", companyName: "", description: "" })
     }
-    let firstRender = 0
+
     useEffect(() => {
-        if (firstRender < 1) {
-            firstRender += 1;
-            addExp()
-        }
-    }, [firstRender])
+        retrievedInfo?.forEach((item) => {
+            console.log(item);
+            // append(item);
+        })
+    }, [retrievedInfo])
 
     return (
         <div className="experience">
@@ -56,12 +68,19 @@ export default function Experience() {
                             control={control}
                             render={({ field }) => <TextField label="Company Name" sx={{ width: 1, mb: 2 }} {...field} />}
                         />
-                        <Controller
+                        {/* <Controller
                             name={`experience[${index}].startDate`}
                             control={control}
-                            render={({ field }) =>
+                            render={({ field: { onChange, value } }) =>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker label="StartDate" sx={{ width: 0.5, mb: 2, mr: 2 }} {...field} />
+                                    <DatePicker
+                                        format="MM-DD-YYYY"
+                                        label="StartDate"
+                                        sx={{ width: 0.5, mb: 2, mr: 2 }}
+                                        value={value}
+                                        onChange={onChange}
+                                    // {...field}
+                                    />
                                 </LocalizationProvider>
                             }
                         />
@@ -74,7 +93,7 @@ export default function Experience() {
                                     <DatePicker label="EndDate" sx={{ width: 0.484, mb: 2 }} {...field} />
                                 </LocalizationProvider>
                             }
-                        />
+                        /> */}
                         <Controller
                             name={`experience[${index}].description`}
                             control={control}
@@ -87,6 +106,16 @@ export default function Experience() {
                                 />
                             }
                         />
+
+                        <Button
+                            type='button'
+                            variant='contained'
+                            color='error'
+                            sx={{ mb: 2 }}
+                            onClick={() => remove(index)}
+                        >
+                            Remove
+                        </Button>
                     </div>
                 ))}
 

@@ -16,6 +16,6 @@ export default function GetLoggedUserInfo() {
         dataRef.ref(`userInfo/${userInfoUuid}`).once('value').then(snapshot => {
             setretrieveInfo(snapshot.val())
         });
-    }, [])
+    }, [navigate])
     return { userInfo, retrieveInfo }
 }
