@@ -1,11 +1,14 @@
 .cascade {
     display: flex;
-    .main-context{
+
+    .main-context {
         background: #fff;
-        *{
+
+        * {
             color: #9b9b9b;
         }
     }
+
     .sidebar {
         background-color: #cc3333;
         flex-basis: 25%;
@@ -19,8 +22,9 @@
                 padding: 1em 0.5em;
             }
         }
-        .address{
-            h6{
+
+        .address {
+            h6 {
                 font-size: 1em;
             }
         }

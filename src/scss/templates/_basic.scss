@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,500&display=swap');
+$basic-primary: #369;
+$basic-grey: #676767;
+$basic-black: #000;
+$basic-white: #fff;
+
+
+.basic-resume-template {
+    background: $basic-white;
+    margin: 2em auto;
+    padding: 3em 0;
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Ubuntu', sans-serif;
+        color: $basic-primary;
+        font-size: 1em;
+        font-weight: 500;
+    }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .align-center {
+        align-items: center;
+    }
+
+    .just-btn {
+        justify-content: space-between;
+    }
+
+    .gap-10 {
+        gap: 10px;
+    }
+
+    p {
+        color: $basic-black;
+        font-size: 1.25em;
+    }
+
+    .container {
+        max-width: 95%;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .title {
+        font-size: 2em;
+        font-weight: bold;
+        margin: 0 0 0.5em;
+        text-transform: uppercase;
+    }
+
+    .personal-details {
+        margin: 0 0 1.5em;
+
+        h2 {
+            font-size: 2.5em;
+        }
+
+        h5 {
+            color: $basic-grey;
+            font-size: 1.5em;
+        }
+    }
+
+    .contact-details {
+        border-top: 2px solid $basic-black;
+        border-bottom: 2px solid $basic-black;
+        padding: 0.5em 0;
+
+        span {
+            font-size: 1em;
+            color: $basic-black;
+        }
+    }
+
+    .skills {
+        margin: 1.5em 0 0;
+
+        .tags {
+            color: $basic-white;
+            font-size: 1.25em;
+            background: $basic-primary;
+            padding: 0.25em 0.5em;
+            display: inline-block;
+            border-radius: 0.25em;
+        }
+    }
+
+    .experience,
+    .education {
+        margin: 1.5em 0 0;
+
+        .details {
+            margin: 0 0 1.5em;
+
+            .role {
+                color: $basic-black;
+                font-size: 1.75em;
+                font-weight: bold;
+            }
+
+            .company_name {
+                color: $basic-black;
+                font-size: 1.5em;
+                font-weight: 500;
+            }
+
+            .period_time {
+                color: $basic-grey;
+                font-size: 1.1em;
+                font-weight: 400;
+                font-style: italic;
+                margin: 0 0 0.5em;
+            }
+
+            ul {
+                li {
+                    color: $basic-black;
+                    font-size: 1.25em;
+                    list-style: none;
+                    position: relative;
+                    padding: 0 0 0 1.5em;
+                    margin: 0 0 0.25em;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        width: 0.65em;
+                        height: 0.15em;
+                        background: $basic-primary;
+                        top: 50%;
+                        left: 0;
+                        transform: translate(0, -50%);
+                    }
+                }
+            }
+        }
+    }
+}

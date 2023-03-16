@@ -10,6 +10,7 @@ import { ResumeContextProvider } from './components/ResumeDataContext';
 import "./scss/style.scss"
 import Cascade from './resume-templates/Cascade';
 import Straight from './resume-templates/Straight';
+import Basic from './resume-templates/Basic';
 
 const darkTheme = createTheme({
   palette: {
@@ -33,6 +34,7 @@ function App() {
             <Route path='/preview-resume' element={<ResumeContextProvider><PreviewResume /></ResumeContextProvider>}></Route>
             <Route path='/preview-resume/cascade' element={<ResumeContextProvider><Cascade /></ResumeContextProvider>}></Route>
             <Route path='/preview-resume/straight' element={<ResumeContextProvider><Straight /></ResumeContextProvider>}></Route>
+            <Route path='/preview-resume/basic' element={<ResumeContextProvider><Basic /></ResumeContextProvider>}></Route>
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
